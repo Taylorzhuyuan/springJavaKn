@@ -1,0 +1,40 @@
+bak/
+bin/
+lib/
+file/
+
+# 本地构建目录
+.build/
+
+# For Test Tmp Files
+/fep-server/gfms/
+
+# For Log Files
+cicp.branch.*.log*
+*.log
+/log/
+/*/log/
+
+# For IDEA
+/.idea/
+*.iml
+
+# For Eclipse
+.classpath
+.project
+/.settings
+/*/.settings/
+
+# For Maven
+/target
+/*/target
+
+# For VCS
+# ClearCase
+/**/.copyarea.db
+# VSS
+/**/vssver2.scc
+
+# For VIM
+*.un~
+.settings
