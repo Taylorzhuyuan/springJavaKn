@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="WARN">
+    <Properties>
+        <property name="project.dir">C:/User/87517/Desktop/src</property>
+        <property name="log.dir">${project.dir}/log</property>
+        <property name="log.backup">${project.dir}/log/backup</property>
+        <property name="log.prefix">eureka-service</property>
+        <property name="hostname">localhost</property>
+        <property name="log.info.suffix">${hostname}.info.log</property>
+        <property name="log.error.suffix">${hostname}.error.log</property>
+        <property name="pattern.fast">
+            %d{MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+        </property>
+        <property name="pattern.slow">
+            %d{MM-dd HH:mm:ss.SSS} [%t] %-5level %C{1.}.%M(%F:%L) - %msg%n
+        </property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern.slow}"/>
+        </Console>
+        <RollingRandomAccessFile
+                name="INFO_LOG"
+                fileName="${log.dir}/${log.prefix}.${log.info.suffix}"
+                filePattern="${log.backup}/${log.prefix}.%d{yyyyMMdd}.${log.info.suffix}.gz">
+            <PatternLayout charset="GBK" pattern="${pattern.slow}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile
+                name="ERROR_LOG"
+                fileName="${log.dir}/${log.prefix}.${log.error.suffix}"
+                filePattern="${log.backup}/${log.prefix}.%d{yyyyMMdd}.${log.error.suffix}.gz">
+            <PatternLayout charset="GBK" pattern="${pattern.slow}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <Filters>
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="DENY" onMismatch="DENY"/>
+            </Filters>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <!-- -->
+            <AppenderRef ref="Console"/>
+
+            <AppenderRef ref="INFO_LOG"/>
+            <AppenderRef ref="ERROR_LOG"/>
+        </Root>
+        <!-- 输出SQL查询结果 -->
+        <!--<Logger name="com.bocsoft.amlmas.namelist.dao" level="TRACE"/>-->
+        <logger name="org.springframework" level="error"/>
+        <logger name="org.mybatis" level="info"/>
+        <logger name="org.apache.ibatis" level="info"/>
+        <logger name="org.quartz.core" level="info"/>
+    </Loggers>
+</Configuration>

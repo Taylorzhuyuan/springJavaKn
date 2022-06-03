@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: eureka
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.83.1:8761/eureka/
+    register-with-eureka: false # 是否向eureka注册自身服务
+    fetch-registry: false #是否检索服务
+bcd: 123
